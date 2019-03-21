@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed = 8f;
+    public float tilt = 3f;
     public LayerMask backgroundLayerMask;
 
     private int backgroundLayerMaskIndex;
@@ -16,7 +18,6 @@ public class PlayerController : MonoBehaviour
     {
         FlushMovement();
         backgroundLayerMaskIndex = backgroundLayerMask.value;
-        Debug.Log(backgroundLayerMaskIndex);
         rigidbody = this.GetComponent<Rigidbody>();
     }
 
@@ -28,23 +29,27 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        horizontalMovement += Input.GetAxis("Horizontal");
-        verticalMovement += Input.GetAxis("Vertical");
+        horizontalMovement += CrossPlatformInputManager.GetAxis("Horizontal");
+        verticalMovement += CrossPlatformInputManager.GetAxis("Vertical");
     }
 
     private void FixedUpdate()
     {
         Move();
+
+        Tilt();
     }
 
     private void Move()
     {
         Vector3 movement = new Vector3(horizontalMovement, verticalMovement);
-        movement = movement.normalized * speed * Time.fixedDeltaTime;
-
-        rigidbody.MovePosition(this.transform.position + movement);
+        rigidbody.velocity = movement.normalized * speed;
 
         FlushMovement();
     }
 
+    private void Tilt()
+    {
+        rigidbody.rotation = Quaternion.Euler(tilt * rigidbody.velocity.y, -1 * tilt * rigidbody.velocity.x, 0f);
+    }
 }

@@ -485,6 +485,16 @@ Prefab:
       propertyPath: screenHeight
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114945886427985734, guid: 2c350f2ea6d36435b8b50bf6e3c429cb,
+        type: 2}
+      propertyPath: tilt
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114945886427985734, guid: 2c350f2ea6d36435b8b50bf6e3c429cb,
+        type: 2}
+      propertyPath: speed
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c350f2ea6d36435b8b50bf6e3c429cb, type: 2}
   m_IsPrefabParent: 0
