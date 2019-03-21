@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public float fireInterval = 0.1f;
     public LayerMask backgroundLayerMask;
     public Transform bulletSpawnPoint;
-    public GameObject bullet;
 
     private new Rigidbody rigidbody;
     private float horizontalMovement;
@@ -40,7 +39,7 @@ public class PlayerController : MonoBehaviour
             if (Time.time >= nextFire)
             {
                 nextFire = Time.time + fireInterval;
-                Fire(); 
+                Fire();
             }
         }
     }
@@ -69,9 +68,15 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 spawnPosition = bulletSpawnPoint.transform.position;
         spawnPosition.z = 0f;
-        Vector3 spwanRotation = bulletSpawnPoint.transform.rotation.eulerAngles;
-        spwanRotation.x = 0f;
-        spwanRotation.y = 0f;
-        Instantiate(bullet, spawnPosition, Quaternion.Euler(spwanRotation));
+        Vector3 spawnRotation = bulletSpawnPoint.transform.rotation.eulerAngles;
+        spawnRotation.x = 0f;
+        spawnRotation.y = 0f;
+
+        GameObject bullet = GameManager.GetBullet();
+
+        bullet.transform.position = spawnPosition;
+        bullet.transform.rotation = Quaternion.Euler(spawnRotation);
+
+        bullet.SetActive(true);
     }
 }

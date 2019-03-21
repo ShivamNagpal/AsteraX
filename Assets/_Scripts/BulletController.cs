@@ -5,13 +5,21 @@ public class BulletController : MonoBehaviour
     public float speed = 15f;
 
     private new Rigidbody rigidbody;
-    private float destroyAfter = 2.0f;
+    private float initialTime;
+    private readonly float destroyAfter = 2.0f;
 
-    private void Start()
+    private void OnEnable()
     {
+        initialTime = Time.time;
         rigidbody = this.GetComponent<Rigidbody>();
         rigidbody.velocity = transform.up * speed;
-        Destroy(this.gameObject, destroyAfter);
     }
 
+    private void Update()
+    {
+        if (Time.time - initialTime >= destroyAfter)
+        {
+            GameManager.PutBullet(this.gameObject);
+        }
+    }
 }
