@@ -7,17 +7,20 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 8f;
     public float tilt = 3f;
+    public float fireInterval = 0.1f;
     public LayerMask backgroundLayerMask;
+    public Transform bulletSpawnPoint;
+    public GameObject bullet;
 
-    private int backgroundLayerMaskIndex;
     private new Rigidbody rigidbody;
     private float horizontalMovement;
     private float verticalMovement;
+    private float nextFire;
 
     private void Start()
     {
         FlushMovement();
-        backgroundLayerMaskIndex = backgroundLayerMask.value;
+        nextFire = 0f;
         rigidbody = this.GetComponent<Rigidbody>();
     }
 
@@ -31,6 +34,15 @@ public class PlayerController : MonoBehaviour
     {
         horizontalMovement += CrossPlatformInputManager.GetAxis("Horizontal");
         verticalMovement += CrossPlatformInputManager.GetAxis("Vertical");
+
+        if (CrossPlatformInputManager.GetButton("Fire1"))
+        {
+            if (Time.time >= nextFire)
+            {
+                nextFire = Time.time + fireInterval;
+                Fire(); 
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -51,5 +63,15 @@ public class PlayerController : MonoBehaviour
     private void Tilt()
     {
         rigidbody.rotation = Quaternion.Euler(tilt * rigidbody.velocity.y, -1 * tilt * rigidbody.velocity.x, 0f);
+    }
+
+    private void Fire()
+    {
+        Vector3 spawnPosition = bulletSpawnPoint.transform.position;
+        spawnPosition.z = 0f;
+        Vector3 spwanRotation = bulletSpawnPoint.transform.rotation.eulerAngles;
+        spwanRotation.x = 0f;
+        spwanRotation.y = 0f;
+        Instantiate(bullet, spawnPosition, Quaternion.Euler(spwanRotation));
     }
 }
