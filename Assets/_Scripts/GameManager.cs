@@ -5,12 +5,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject bulletGameObject;
-    private static GameObject staticBulletGameObject;
     private static Queue<GameObject> bulletsQueue;
+    public static GameManager instance;
 
     private void Awake()
     {
-        staticBulletGameObject = bulletGameObject;
+        if (GameManager.instance != null && GameManager.instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        GameManager.instance = this;
+        DontDestroyOnLoad(GameManager.instance.gameObject);
+
         bulletsQueue = new Queue<GameObject>();
     }
 
@@ -20,12 +28,10 @@ public class GameManager : MonoBehaviour
         if (bulletsQueue.Count != 0)
         {
             bullet = bulletsQueue.Dequeue();
-            bullet.transform.position = Vector3.zero;
-            bullet.transform.rotation = Quaternion.Euler(Vector3.zero);
         }
         else
         {
-            bullet = Instantiate(staticBulletGameObject);
+            bullet = Instantiate(GameManager.instance.bulletGameObject);
             bullet.SetActive(false);
         }
         return bullet;
