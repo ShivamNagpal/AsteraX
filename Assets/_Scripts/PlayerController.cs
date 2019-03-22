@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 8f;
+    public float speed = 6f;
     public float tilt = 3f;
     public float fireInterval = 0.1f;
     public LayerMask backgroundLayerMask;

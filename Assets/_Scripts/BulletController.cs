@@ -2,7 +2,7 @@
 
 public class BulletController : MonoBehaviour
 {
-    public float speed = 15f;
+    public float speed = 10f;
 
     private new Rigidbody rigidbody;
     private float initialTime;
