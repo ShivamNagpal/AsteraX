@@ -2,7 +2,7 @@
 
 public class BulletController : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed = 12f;
 
     private new Rigidbody rigidbody;
     private float initialTime;
@@ -20,6 +20,14 @@ public class BulletController : MonoBehaviour
         if (Time.time - initialTime >= destroyAfter)
         {
             GameManager.PutBullet(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Trigger");
         }
     }
 }

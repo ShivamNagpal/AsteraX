@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class ScreenWrap : MonoBehaviour
 {
-    public float screenWidth = 17.0f;
-    public float screenHeight = 10.0f;
+    private readonly int error = 10;
 
-    private void Update()
+    private void OnTriggerExit(Collider other)
     {
-        Vector3 position = gameObject.transform.position;
-        if (Mathf.Abs(position.x) > screenWidth)
+        if (other.gameObject.CompareTag("ScreenBounds"))
         {
-            position.x = -1 * Mathf.Sign(position.x) * screenWidth;
-        }
+            Vector3 position = other.transform.InverseTransformVector(this.transform.position);
+            
+            if (Mathf.Abs(position.x) > 0.5)
+            {
+                position.x *= -1;
+                position.x += -Mathf.Sign(position.x) * error / Screen.width;
+            }
 
-        if (Mathf.Abs(position.y) > screenHeight)
-        {
-            position.y = -1 * Mathf.Sign(position.y) * screenHeight;
-        }
+            if (Mathf.Abs(position.y) > 0.5)
+            {
+                position.y *= -1;
+                position.y += -Mathf.Sign(position.y) * error / Screen.height;
+            }
 
-        this.gameObject.transform.position = position;
+            position = other.transform.TransformVector(position);
+            this.transform.position = position;
+        }
     }
 }

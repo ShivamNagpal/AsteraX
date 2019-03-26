@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebcb8d81731b0f4c94a15aff21caa74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 12
 --- !u!114 &114502027040166446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,8 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9dd321f7c0a1a438d6d48e9c31c9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenWidth: 17
-  screenHeight: 10
 --- !u!135 &135132224789660350
 SphereCollider:
   m_ObjectHideFlags: 1

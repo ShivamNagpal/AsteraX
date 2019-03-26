@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4128896187653560}
+  - component: {fileID: 114871379055068464}
   m_Layer: 8
   m_Name: TurretRotator
   m_TagString: Untagged
@@ -55,6 +56,21 @@ GameObject:
   - component: {fileID: 23348100638285804}
   m_Layer: 8
   m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1520318200438416
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4579008181697880}
+  m_Layer: 8
+  m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,6 +138,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4599906963886276}
+  - {fileID: 4579008181697880}
   m_Father: {fileID: 4368249187107940}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -165,6 +182,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4368249187107940}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4579008181697880
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520318200438416}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0.50000006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4128896187653560}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4599906963886276
@@ -326,7 +356,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -343,8 +373,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9dd321f7c0a1a438d6d48e9c31c9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenWidth: 17
-  screenHeight: 10
+--- !u!114 &114871379055068464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1194270976900878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e925576b17a8b4689a1e1eb3b27482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!114 &114945886427985734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,10 +398,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cef0e4203484034f8f64597e5cfdb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 6
+  tilt: 3
+  fireInterval: 0.1
   backgroundLayerMask:
     serializedVersion: 2
     m_Bits: 8192
+  bulletSpawnPoint: {fileID: 4579008181697880}
 --- !u!135 &135344746280246978
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -367,7 +412,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1664251521892296}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
